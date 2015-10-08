@@ -26,10 +26,10 @@ Weka was used to generate the data and R for the rest. The following scripts in 
 
 |                |             |     |              |
 | --------------:|------------:| ----|-------------:|
-| ActualValue1,1 | Estimate1,2 | ... | Estimate1,N  |
-| ActualValue2,1 | Estimate1,2 | ... | Estimate1,N  |
+| ActualValue1   | Estimate1,2 | ... | Estimate1,N  |
+| ActualValue2   | Estimate1,2 | ... | Estimate1,N  |
 | ...            | ...         | ... | ...          |
-| ActualValueM,1 | EstimateM,2 | ... | EstimateM,N  |
+| ActualValueM   | EstimateM,2 | ... | EstimateM,N  |
 
 These files use the extension w2r (as they will be used by the R script)
 
