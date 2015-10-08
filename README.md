@@ -33,7 +33,8 @@ Weka was used to generate the data and R for the rest. The following scripts in 
 
 These files use the extension w2r (as they will be used by the R script)
 
-Bash scripts that make use of weka:
+Bash scripts that make use of Weka:
+
 1. [divideData.sh] (./bashScripts/divideData.sh) for creating 3 training and test sets using stratified folds.
 2. [bashScripts.zip] (./bashScripts/divideData.sh) to generate the files fir the aforementioned format and w2r extension.
 3. [runAll3KF.sh] (./bashScripts/divideData.sh) to run all generateData scripts
