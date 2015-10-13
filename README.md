@@ -8,10 +8,10 @@ by Javier Dolado, Daniel Rodriguez, Mark Harman, Bill Langdon and Federica Sarro
 ## Data ##
 Datasets are all publicly available form the [PROMISE respository] (http://openscience.us/repo/ "PROMISE repository") or the literature with the exception of the except the ISBSG dataset (http://www.isbsg.org/ "ISBSG"). In particular, we used:
 
-1. [CSC dataset] (../datasets/kitchenham.arff)
-2. [China dataset] (../datasets/china.arff)
-3. [Maxwell dataset] (../datasets/maxwell.arff)
-4. [Desharnais] (../datasets/desharnais.arff)
+1. [CSC dataset] (./datasets/kitchenham.arff)
+2. [China dataset] (./datasets/china.arff)
+3. [Maxwell dataset] (./datasets/maxwell.arff)
+4. [Desharnais] (./datasets/desharnais.arff)
 5. ISBSG
 6. Atkinson and Telecom1 datasets
 
