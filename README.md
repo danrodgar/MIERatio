@@ -64,3 +64,5 @@ R is used for for everything else. It automatically generates Latex tables and f
 5. mcmcplots
 6. coda
 7. LaplacesDemon
+
+The code is provided "as it is". It was intended for research and personal use.  (The shoemaker's son always goes barefoot.)
