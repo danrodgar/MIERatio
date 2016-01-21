@@ -34,15 +34,14 @@ filesprocessed <- 0
 # dir_for_tables <- "~/DocProys/seminal/ehu2014/paper/tables"
 
 # current data 
-# dir_to_read <- "~/Dropbox/dhl/DataResults3KF_3"
-# dir_to_read <- "~/Dropbox/dhl/DataResults3KF_2"
-# dir_to_read <- "~/Dropbox/dhl/DataResults3KF_1"
-# dir_to_read <- "~/Dropbox/dhl/DataResults5KF"
-dir_to_read <- "~/Dropbox/dhl/DataResults3KF"
+
+# dir_to_read <- "~/Dropbox/dhl/DataResults3KF"
+dir_to_read <- "~/Dropbox/dhl/DataResults3KF-9"
 dir_default_data <- "~/DocProys/seminal/eht2015/data"
 dir_for_figures <- "~/DocProys/seminal/eht2015/article/figures"
 dir_for_tables <- "~/DocProys/seminal/eht2015/ese2015"
 dir_for_article <- "~/DocProys/seminal/eht2015/article"
+dir_for_averages <- "~/DocProys/seminal/eht2015/article/averages" #dir for the averages of runs
 
 filename_marp0 <- "marp0s.mrp"
 setwd(dir_to_read)
@@ -68,6 +67,7 @@ list_of_datasets <- c("china", "isbsg", "kitchenham","csc", "desharnais", "maxwe
 list_of_datasetsnames <- c("China", "ISBSG", "CSC","CSC", "Desharnais", "Maxwell" )  # formatting purposes
 filenamecismiesratios <- "AllFilesMiersCis.txt"
 filenamecisSAsratios <- "AllFilesSAsCIs.txt"
+filename4averages <- "Tables4avergs.rds"
 
 mindatapoints4boot <- 3 #numer of points at the end of the process greater than or equal to this value
   
@@ -738,6 +738,23 @@ data2latex <- data.frame(c(col_method,
                            data2latex[ ,2:length(keeps)])) 
 colnames(data2latex) <- keepthecolumnnames  #latex formatting not lost
 
+previous_dir2 <- getwd() # save and add the df of results to the df of runs for computing averages
+setwd(dir_for_averages)
+if (file.exists(filename4averages)){ #load and add data  with rds and loadrds
+  listdfs_loaded <- readRDS(filename4averages)  
+  listdfs_loaded[[length(listdfs_loaded)+1]] <- data2latex
+  saveRDS(listdfs_loaded, file = filename4averages)
+} else {
+  listdata2latex <- list(data2latex)
+  saveRDS(listdata2latex, file = filename4averages) 
+}
+
+fileprocessed <- tail(strsplit(dir_to_read, "/")[[1]], 1)
+fileprocessed <- paste("Table",fileprocessed,".txt", sep="")
+write.table(data2latex, file=fileprocessed, append=FALSE)
+write.table(data2latex, file="AllTables.txt", eol = "\n", append=TRUE)  # , row.names=FALSE
+setwd(previous_dir2) # set the previous dir
+
 # sort the dataset
 data2latex <- data2latex[with(data2latex, 
                               order(data2latex[ncol(data2latex)])), ] # sort by last column MIERatio
@@ -757,7 +774,7 @@ nrowsinltxtable <- min(nrowsinltxtable, nrow(data2latex))
 data2latex <- data2latex[1:nrowsinltxtable, ]
 
 # before converting to latex, transform the SA column to string 
-# make boldface those cells in SA column that are not in descending order
+# make italics those cells in SA column that are not in descending order
 # use digitslatextable 
 SA <- data2latex[ncol(data2latex)-1]
 SAformatted <- ""
@@ -1327,7 +1344,7 @@ bayeslatex <- xtable(bbayeslatex)
 align(bayeslatex) <- "r|ccc"
 label(bayeslatex) <- paste("table:bayescis", alpha, sep="")
 caption(bayeslatex) <- paste("This table shows different probabilistic intervals for each one of the ", nrow(AllcisBayes),
-                              " methods ($\\alpha=", alpha, "$). Scale is 0-$\\infty$. Lower values are better.", sep="")
+                              " methods ($\\alpha=", alpha, "$) for the data of the MIEratios. Scale is 0-$\\infty$. Lower values are better.", sep="")
 
 bayestable.tex <- print.xtable(bayeslatex,
                                type = "latex",
@@ -1494,7 +1511,7 @@ align(bayeslatex_SA) <- "r|ccc"
 label(bayeslatex_SA) <- paste("table:bayescisSA", alpha, sep="")
 caption(bayeslatex_SA) <- paste("This table shows different credible intervals for each one of the ", 
                                 nrow(AllcisBayes_SA),
-                                " methods ($\\alpha=", alpha, "$). Scale is 0-1. Greater values are better.", sep="")
+                                " methods ($\\alpha=", alpha, "$) for the data of the SA. Scale is 0-1. Greater values are better.", sep="")
 
 bayestableSA.tex <- print.xtable(bayeslatex_SA,
                                  type = "latex",
